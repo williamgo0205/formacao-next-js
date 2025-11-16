@@ -20,6 +20,9 @@ https://nextjs.org/docs
 
 https://nextjs.org/docs/pages/getting-started/installation
 
+### 4. Componentes Next
+https://nextjs.org/docs/pages/api-reference/components
+
 # Comandos Úteis
 
 A maneira mais rápida de criar um novo aplicativo Next.js é usando o `next.js` create-next-app, que configura tudo automaticamente para você. Para criar um projeto, execute:
