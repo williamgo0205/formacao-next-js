@@ -65,7 +65,7 @@ https://www.figma.com/community/file/1491107537598172161/landing-page-e-blog
 
 ### 6. Libs
 
-### Shadcn Ui
+### shadcn-ui
 
 #### Shadcn Ui (Utilização de componentes)
 https://ui.shadcn.com/
