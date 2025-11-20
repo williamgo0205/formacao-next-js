@@ -4,6 +4,5 @@ import type { AppProps } from "next/app";
 // Esse arquivo _app executa tanto no client quando no server da aplicação.
 // Ele cosnegue configurar onde será feita a renderização do app
 export default function App({ Component, pageProps }: AppProps) {  
-  console.log('app');
   return <Component {...pageProps} />;
 }
