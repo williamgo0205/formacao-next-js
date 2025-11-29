@@ -1,3 +1,4 @@
+import { Footer } from "../footer";
 import { Header } from "../header";
 
 type LayoutProps = {
@@ -11,6 +12,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <main className="flex-1 flex felx-col mb-12">
         {children}
       </main>
+      <Footer />
     </div>
   );
 };
