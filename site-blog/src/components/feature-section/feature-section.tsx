@@ -63,13 +63,11 @@ export const FeatureSection = () => {
               </Link>
             </Button>
           </div>
+
         </div>
 
       </div>
 
     </section>
-
-    // Faltando 12:27 minutos da aula - Seção: Feature
-
   )
 }
