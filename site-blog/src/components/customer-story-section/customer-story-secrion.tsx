@@ -1,10 +1,4 @@
-import { PT_Sans_Caption } from "next/font/google";
 import Image from "next/image";
-
-const ptSansCaption = PT_Sans_Caption({
-  subsets: ['latin'],
-  weight: '700'
-});
 
 const customerStories = [
   {
@@ -30,7 +24,7 @@ export const CustomerStorySection = () => {
     <section className="container py-20 md:py-32">
       <div className="flex flex-col items-center gap-12">
 
-        <h2 className={`${ptSansCaption.className} text-balance text-center text-heading-xl text-gray-100`}>Quem utiliza, aprova!</h2>
+        <h2 className="font-sans text-balance text-center text-heading-xl text-gray-100">Quem utiliza, aprova!</h2>
 
         <div className="grid gap-8 md:grid-cols-2">
 
@@ -60,7 +54,7 @@ export const CustomerStorySection = () => {
 
         </div>
       </div>
-    </section>
+    </section >
 
   )
 }
