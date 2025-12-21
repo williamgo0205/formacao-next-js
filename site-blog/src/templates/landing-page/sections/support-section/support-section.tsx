@@ -1,6 +1,5 @@
 import { HeartHandshake, PaintbrushVertical, Store } from "lucide-react"
 
-
 export const SupportSection = () => {
   return (
     <section className="relative pb-8 md:py-10 bg-gray-700">
