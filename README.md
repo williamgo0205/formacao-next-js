@@ -75,3 +75,20 @@ https://ui.shadcn.com/docs/installation/next
 
 #### Comando:
 npx shadcn@latest init
+
+### 7. Construção arquivos Markdown
+
+
+#### Content Layer
+
+Lib de utilização entre os arquivos Markdown e o Next.
+
+#### Link: 
+https://contentlayer.dev/
+
+### Comando:
+npm install contentlayer next-contentlayer
+
+ou forçar a instalação:
+
+npm install contentlayer next-contentlayer --legacy-peer-deps
