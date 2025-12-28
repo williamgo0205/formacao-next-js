@@ -55,3 +55,23 @@ What import alias would you like configured? @/\*
 ```
 
 Após as instruções, create-next-app será criada uma pasta com o nome do seu projeto e instaladas as dependências necessárias.
+
+
+### 5. Informações do Projeto
+
+#### Figma:
+https://www.figma.com/community/file/1491107537598172161/landing-page-e-blog
+
+
+### 6. Libs
+
+### shadcn-ui
+
+#### Shadcn Ui (Utilização de componentes)
+https://ui.shadcn.com/
+
+#### Instalação:
+https://ui.shadcn.com/docs/installation/next
+
+#### Comando:
+npx shadcn@latest init

@@ -1,9 +1,9 @@
-import { Head, Html, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
 
 // Serve para controlar a estruura inicial do HTML que vem do servidor
 // Ele somente é execitado no servidor
 export default function Document() {
-
+  console.log('document')
   return (
     <Html lang="en">
       <Head />
