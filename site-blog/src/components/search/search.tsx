@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
-import { SearchIcon } from "lucide-react";
+import { CircleX, SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 
 export const Search = () => {
   const router = useRouter();
-  const query = router.query.q as string;
+  const query = (router.query.q as string) ?? '';
 
   // Função para quando o cliente digitar uma informação e pressionar a tecla enter seja executada atualizando a URI da página
   const handleSearch = useCallback((event: React.FormEvent) => {
@@ -31,8 +31,20 @@ export const Search = () => {
     )
   }
 
+  // Função para resetar o dado informado no input
+  const resetSearch = () => {
+    router.push(
+      '/blog',
+      undefined,
+      {
+        shallow: true,
+        scroll: false
+      }
+    )
+  }
+
   return (
-    <form onSubmit={handleSearch} className="relative group">
+    <form onSubmit={handleSearch} className="relative group w-full md:w-60">
       <SearchIcon
         // "cd" é uma função do shadcn/ui 
         // A função cn é um utilitário usado para compor e combinar classes CSS de forma dinâmica em componentes React a fim de evitar conflitos.
@@ -45,12 +57,21 @@ export const Search = () => {
       <input
         type="text"
         placeholder="Buscar"
-        className="h-10 w-72 bg-transparent border border-gray-400 pl-9 text-gray-100 rounded-md 
+        value={query}
+        className="w-full h-10 md:w-60 bg-transparent border border-gray-400 pl-9 text-gray-100 rounded-md 
                    text-body-sm outline-none transition-all duration-200 
                    focus-within:border-blue-300 focus-within:ring-1 focus-within:ring-blue-300 
                    placeholder:text-gray-300 placeholder:text-body-sm"
         onChange={handleQueryChange}
       />
+
+      {/* Caso exista informação (na constante query, ou seja digitado em tela), o componente CircleX é rendereizado */}
+      {query && (
+        <CircleX
+          className="absolute w-4 h-4 top-1/2 -translate-y-1/2 right-3 text-gray-300"
+          onClick={resetSearch}
+        />
+      )}
     </form>
   )
 }
