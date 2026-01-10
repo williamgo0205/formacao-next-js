@@ -92,3 +92,13 @@ npm install contentlayer next-contentlayer
 ou forçar a instalação:
 
 npm install contentlayer next-contentlayer --legacy-peer-deps
+
+### Comando para buildar o contantlayer
+npm run contentlayer:build
+
+PS: Esse comando deve ser rodado na pasta anterior a "src"
+
+### Adicionar ao package.json
+  "scripts": {
+    "contentlayer:build": "contentlayer build"
+  },
