@@ -102,3 +102,9 @@ PS: Esse comando deve ser rodado na pasta anterior a "src"
   "scripts": {
     "contentlayer:build": "contentlayer build"
   },
+
+
+## 9. Comandos de Inclusão de componente:
+
+### Breadbrumb:
+npx shadcn@latest add breadcrumb
