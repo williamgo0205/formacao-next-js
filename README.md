@@ -108,3 +108,11 @@ PS: Esse comando deve ser rodado na pasta anterior a "src"
 
 ### Breadbrumb:
 npx shadcn@latest add breadcrumb
+
+## 10. Plugin react-markdown
+
+### Link:
+https://github.com/remarkjs/react-markdown?tab=readme-ov-file
+
+### Para uso do reat-markdown é necessário utilizar o remark-gfm
+https://github.com/remarkjs/remark-gfm
