@@ -88,8 +88,11 @@ export default function PostPage() {
               </h2>
 
               <div className="space-y-3">
-                {[{ key: '1', providerName: 'LinkedIn' }].map((provider) => (
-                  <Button key={provider.key} variant="outline">
+                {[
+                  { key: '1', providerName: 'LinkedIn' },
+                  { key: '2', providerName: 'Facebook' }
+                ].map((provider) => (
+                  <Button key={provider.key} variant="outline" className="w-full justify-start gap-2">
                     {provider.providerName}
                   </Button>
                 ))}
