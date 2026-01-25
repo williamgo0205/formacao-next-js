@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Avatar } from "@/components/avatar";
 import { Markdown } from "@/components/markdown";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 
 
 export default function PostPage() {
@@ -74,10 +75,27 @@ export default function PostPage() {
             </header>
 
             {/* componente Markdown */}
-            <div className="prose prove-invert max-w-none px-4 mt-12 md:px-6 lg:px-12">
+            <div className="prose prose-invert max-w-none px-4 mt-12 md:px-6 lg:px-12">
               <Markdown content={post.body.raw} />
             </div>
           </article>
+
+          {/* Botões de compartilhamento como LinkedIn, Facebook, ... */}
+          <aside className="space-y-6">
+            <div className="rounded-lg bg-gray-700 p-4 md:p-6">
+              <h2 className="mb-4 text-heading-xs text-gray-100">
+                Compartilhar
+              </h2>
+
+              <div className="space-y-3">
+                {[{ key: '1', providerName: 'LinkedIn' }].map((provider) => (
+                  <Button key={provider.key} variant="outline">
+                    {provider.providerName}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </main>
