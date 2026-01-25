@@ -75,3 +75,44 @@ https://ui.shadcn.com/docs/installation/next
 
 #### Comando:
 npx shadcn@latest init
+
+### 7. Construção arquivos Markdown
+
+
+#### Content Layer
+
+Lib de utilização entre os arquivos Markdown e o Next.
+
+#### Link: 
+https://contentlayer.dev/
+
+### Comando:
+npm install contentlayer next-contentlayer
+
+ou forçar a instalação:
+
+npm install contentlayer next-contentlayer --legacy-peer-deps
+
+### Comando para buildar o contantlayer
+npm run contentlayer:build
+
+PS: Esse comando deve ser rodado na pasta anterior a "src"
+
+### Adicionar ao package.json
+  "scripts": {
+    "contentlayer:build": "contentlayer build"
+  },
+
+
+## 9. Comandos de Inclusão de componente:
+
+### Breadbrumb:
+npx shadcn@latest add breadcrumb
+
+## 10. Plugin react-markdown
+
+### Link:
+https://github.com/remarkjs/react-markdown?tab=readme-ov-file
+
+### Para uso do reat-markdown é necessário utilizar o remark-gfm
+https://github.com/remarkjs/remark-gfm

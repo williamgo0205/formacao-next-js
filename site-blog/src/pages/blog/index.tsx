@@ -1,8 +1,7 @@
+import { BlogList } from "@/templates/blog";
 
 export default function BlogPage() {
   return (
-    <>
-      <h2>Blog</h2>
-    </>
-  );
+    <BlogList />
+  )
 }
