@@ -4,10 +4,17 @@ export type ShareConfig = {
   url: string;
   title?: string;
   text?: string;
-}
+};
+
+export type SocialProvider =
+  | 'linkedin'
+  | 'facebook'
+  | 'slack'
+  | 'twitter'
+  | 'threads';
 
 export const SOCIAL_PROVIDERS = {
-  Linkedin: {
+  linkedin: {
     name: 'LinkedIn',
     icon: <Linkedin className='h-4 w-4' />,
     shareUrl: (config: ShareConfig) =>
@@ -15,7 +22,7 @@ export const SOCIAL_PROVIDERS = {
         config.url
       )}`
   },
-  Facebook: {
+  facebook: {
     name: 'Facebook',
     icon: <Facebook className='h-4 w-4' />,
     shareUrl: (config: ShareConfig) =>
