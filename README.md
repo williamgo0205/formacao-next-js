@@ -12,6 +12,15 @@ https://app.rocketseat.com.br/journey/next-js/overview
 
 https://nextjs.org/
 
+### Utilização de Pages router:
+https://nextjs.org/docs/pages/building-your-application/data-fetching
+
+Data Fetching
+* getStaticProps *(A execução é feita apenas no mometo de build)*
+* getStaticPaths *(Especifica quais são as rotas dinâmicas devem ser estaticamente geradas em tempo de build)*
+* Incremental Static Regeneration (ISR) *(Permite que páginas estáticas sejam regeradas após um tempo configurado sem a necessidade de ser feito o deploy novamente)*
+* getServerSideProps *(Busca os dados sempre a cada requisição)*
+
 ### 2. Documentação Next
 
 https://nextjs.org/docs
