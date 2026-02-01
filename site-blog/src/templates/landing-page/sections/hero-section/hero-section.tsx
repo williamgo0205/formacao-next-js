@@ -3,11 +3,10 @@ import { ArrowRight, Clock, Store } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-
 export const HeroSection = () => {
   return (
     <section className="container relative flex items-center justify-center mt-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gag-8 min-h-[20rem] md:h-[36rem] items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[20rem] md:h-[36rem] items-center">
         <div className="flex flex-col itens-center justify-center gap-4 md:items-start lg:items-start">
           <h1 className="text-gray-100 text-heading-hg font-sans">Venda seus produtos como afiliado em um único lugar</h1>
 
