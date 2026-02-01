@@ -1,11 +1,16 @@
+import { Link } from "lucide-react";
 import { useCallback, useMemo } from "react";
+import { useClipboard } from "../use-clipboard";
 import { ShareConfig, SOCIAL_PROVIDERS, SocialProvider } from "./social-providers";
 
 type UseShareProps = ShareConfig & {
   clipboardTimeout?: number;
 };
 
-export const useShare = ({ url, title, text }: UseShareProps) => {
+export const useShare = ({ url, title, text, clipboardTimeout = 2000 }: UseShareProps) => {
+  // Utilizando o clipboard
+  const { isCopied, handleCopy } = useClipboard({ timeout: clipboardTimeout });
+
   // useMemo - Função de memória do React
   const shareConfig = useMemo(() => ({
     url,
@@ -15,8 +20,12 @@ export const useShare = ({ url, title, text }: UseShareProps) => {
 
 
   // useCallback - Função de memória do React para callback
-  const share = useCallback((provider: SocialProvider) => {
+  const share = useCallback(async (provider: SocialProvider) => {
     try {
+      if (provider === 'clipboard') {
+        return await handleCopy(url)
+      }
+
       const providerConfig = SOCIAL_PROVIDERS[provider];
 
       if (!providerConfig) {
@@ -36,7 +45,7 @@ export const useShare = ({ url, title, text }: UseShareProps) => {
       console.error(error);
       return false;
     }
-  }, [shareConfig]);
+  }, [shareConfig, handleCopy, url]);
 
   const shareButtons = useMemo(() => [
     ...Object.entries(SOCIAL_PROVIDERS).map(([key, provider]) => ({
@@ -45,7 +54,13 @@ export const useShare = ({ url, title, text }: UseShareProps) => {
       icon: provider.icon,
       action: () => share(key as SocialProvider),
     })),
-  ], [share]);
+    {
+      provider: 'clipboard',
+      name: isCopied ? 'Link copiado!' : 'Copiar link',
+      icon: <Link className="h-4 w-4" />,
+      action: () => share('clipboard')
+    }
+  ], [isCopied, share]);
 
   return { shareButtons }
 };

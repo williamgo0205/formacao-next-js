@@ -1,116 +1,49 @@
+import { PostPage as Post, type PostPageProps } from "@/templates/blog";
 import { allPosts } from "contentlayer/generated";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-import { Avatar } from "@/components/avatar";
-import { Markdown } from "@/components/markdown";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { useShare } from "@/hooks";
-
-export default function PostPage() {
-  const router = useRouter();
-  const slug = router.query.slug as string | undefined;
-
-  if (!slug) return null; // ou um loading
-
-  const post = allPosts.find((post) =>
-    post.slug.toLowerCase() === slug.toLowerCase()
-  )!;
-
-  const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR');
-  const postUrl = `https://site.set/blog/${slug}`;
-
-  const { shareButtons } = useShare({
-    url: postUrl,
-    title: post.title,
-    text: post.description,
-  });
-
-  return (
-    <main className="container mt-32 text-gray-100">
-      <div className="container space-y-12 px-4 md:px-8">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild className="text-action-sm">
-                <Link href="/blog">Blog</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <BreadcrumbSeparator />
-
-            <BreadcrumbItem>
-              <span className="text-blue-200 text-action-sm">
-                {post?.title}
-              </span>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12">
-          <article className="bg-gray-600 rounded-lg overflow-hidden border-gray-400 border-[1px]">
-            <figure className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
-              <Image
-                src={post?.image ?? ''}
-                alt={post?.title ?? ''}
-                fill
-                className="object-cover"
-              />
-            </figure>
-
-            <header className="p-4 md:p-6 lg:p-12 pb-0 mt-8 md:mt-12">
-              <h1 className="mb-8 text-balance text-heading-lg md:text-heading-xl lg:text-heading-xl">
-                {post?.title}
-              </h1>
-
-              <Avatar.Container>
-                <Avatar.Image
-                  src={post?.author.avatar.trim() ?? ''}
-                  alt={post?.title ?? ''}
-                  size="sm"
-                />
-                <Avatar.Content>
-                  <Avatar.Title>{post?.author.name}</Avatar.Title>
-                  <Avatar.Description>
-                    Publicado em {" "}
-                    <time dateTime={post.date}>{publishedDate}</time>
-                  </Avatar.Description>
-                </Avatar.Content>
-              </Avatar.Container>
-            </header>
-
-            {/* componente Markdown */}
-            <div className="prose prose-invert max-w-none px-4 mt-12 md:px-6 lg:px-12">
-              <Markdown content={post.body.raw} />
-            </div>
-          </article>
-
-          {/* Botões de compartilhamento como LinkedIn, Facebook, ... */}
-          <aside className="space-y-6">
-            <div className="rounded-lg bg-gray-700 p-4 md:p-6">
-              <h2 className="mb-4 text-heading-xs text-gray-100">
-                Compartilhar
-              </h2>
-
-              <div className="space-y-3">
-                {shareButtons.map((provider) => (
-                  <Button
-                    key={provider.provider}
-                    onClick={() => provider.action()}
-                    variant="outline"
-                    className="w-full justify-start gap-2"
-                  >
-                    {provider.icon}
-                    {provider.name}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </main>
-  )
+export default function PostPage({ post }: PostPageProps) {
+  return <Post post={post} />
 }
+
+// Para o Slug (rota dinâmica) é utilizado o "getStaticPaths" senão o NEXT nao reconhece essas rotas gerando erros na aplicação
+// Neste exemplo renderizando de forma estática os 5 primeiros posts do site
+export const getStaticPaths = (async () => {
+  const sortedposts = allPosts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  // Filtrando os 5 recentes posts
+  const recentPosts = sortedposts.slice(0, 5);
+
+  // Adicionando as informações dos paths
+  const paths = recentPosts.map((post) => ({
+    params: { slug: post.slug }
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking'
+  }
+
+}) satisfies GetStaticPaths;
+
+// Renderizando de forma Estática a página de Posts pois não haverá mudanças e com isso ela pode ser renderizada no BUILD da aplicação
+// Static Site Generation (SSG)
+export const getStaticProps = (async (context) => {
+  const { slug } = context.params as { slug: string };
+  const post = allPosts.find((post) => post.slug == slug);
+
+  if (!post) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      post
+    }
+  }
+
+}) satisfies GetStaticProps;
