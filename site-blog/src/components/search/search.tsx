@@ -1,11 +1,13 @@
 import { cn } from "@/lib/utils";
 import { CircleX, SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import React, { useCallback } from "react";
 
 export const Search = () => {
   const router = useRouter();
-  const query = (router.query.q as string) ?? '';
+  const searchParams = useSearchParams();
+  const query = searchParams?.get('q') ?? '';
 
   // Função para quando o cliente digitar uma informação e pressionar a tecla enter seja executada atualizando a URI da página
   const handleSearch = useCallback((event: React.FormEvent) => {
@@ -23,9 +25,7 @@ export const Search = () => {
 
     router.push(
       `/blog?q=${encodeURIComponent(newQuery)}`,
-      undefined,
       {
-        shallow: true,
         scroll: false
       }
     )
@@ -35,9 +35,7 @@ export const Search = () => {
   const resetSearch = () => {
     router.push(
       '/blog',
-      undefined,
       {
-        shallow: true,
         scroll: false
       }
     )
