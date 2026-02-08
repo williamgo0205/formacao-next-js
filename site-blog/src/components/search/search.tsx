@@ -2,12 +2,15 @@ import { cn } from "@/lib/utils";
 import { CircleX, SearchIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 export const Search = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams?.get('q') ?? '';
+  const hasQuery = !!searchParams?.has('q');
 
   // Função para quando o cliente digitar uma informação e pressionar a tecla enter seja executada atualizando a URI da página
   const handleSearch = useCallback((event: React.FormEvent) => {
@@ -41,6 +44,13 @@ export const Search = () => {
     )
   }
 
+  // UseEffects utilizado para setar o foco no componente search automatcamente caso o "hasQuery" tenha o valor 'q'
+  useEffect(() => {
+    if (hasQuery) {
+      inputRef.current?.focus()
+    }
+  }, [hasQuery]);
+
   return (
     <form onSubmit={handleSearch} className="relative group w-full md:w-60">
       <SearchIcon
@@ -53,6 +63,7 @@ export const Search = () => {
       />
 
       <input
+        ref={inputRef}
         type="text"
         placeholder="Buscar"
         value={query}
