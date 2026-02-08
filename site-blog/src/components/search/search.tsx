@@ -1,11 +1,16 @@
 import { cn } from "@/lib/utils";
 import { CircleX, SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import React, { useCallback, useEffect, useRef } from "react";
 
 export const Search = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const router = useRouter();
-  const query = (router.query.q as string) ?? '';
+  const searchParams = useSearchParams();
+  const query = searchParams?.get('q') ?? '';
+  const hasQuery = !!searchParams?.has('q');
 
   // Função para quando o cliente digitar uma informação e pressionar a tecla enter seja executada atualizando a URI da página
   const handleSearch = useCallback((event: React.FormEvent) => {
@@ -23,9 +28,7 @@ export const Search = () => {
 
     router.push(
       `/blog?q=${encodeURIComponent(newQuery)}`,
-      undefined,
       {
-        shallow: true,
         scroll: false
       }
     )
@@ -35,13 +38,18 @@ export const Search = () => {
   const resetSearch = () => {
     router.push(
       '/blog',
-      undefined,
       {
-        shallow: true,
         scroll: false
       }
     )
   }
+
+  // UseEffects utilizado para setar o foco no componente search automatcamente caso o "hasQuery" tenha o valor 'q'
+  useEffect(() => {
+    if (hasQuery) {
+      inputRef.current?.focus()
+    }
+  }, [hasQuery]);
 
   return (
     <form onSubmit={handleSearch} className="relative group w-full md:w-60">
@@ -55,6 +63,7 @@ export const Search = () => {
       />
 
       <input
+        ref={inputRef}
         type="text"
         placeholder="Buscar"
         value={query}
