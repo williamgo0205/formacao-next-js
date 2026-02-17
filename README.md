@@ -125,3 +125,8 @@ https://github.com/remarkjs/react-markdown?tab=readme-ov-file
 
 ### Para uso do reat-markdown é necessário utilizar o remark-gfm
 https://github.com/remarkjs/remark-gfm
+
+## 11. Deploy da aplicação
+
+### Vercel link: 
+https://vercel.com/
