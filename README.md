@@ -130,3 +130,8 @@ https://github.com/remarkjs/remark-gfm
 
 ### Vercel link: 
 https://vercel.com/
+
+## 12. verificar desempenho da aplicação
+
+### pagespeed link: 
+https://pagespeed.web.dev/
