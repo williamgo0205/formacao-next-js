@@ -10,5 +10,4 @@ pre-push:
   commands:
     validate:
       root: "pet-shop"
-      glob: "**/*.{ts,tsx}"
       run: npm run validate:typecheck
