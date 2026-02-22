@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div>
       <h2>Rocketseat</h2>
-      <Component title={150} />
+      <Component title={200} />
     </div>
   );
 }
