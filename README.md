@@ -1,5 +1,7 @@
 # Curso Formacao Next JS
 
+## Curso Nível 1 - Fundamentos do Next.js
+
 Crie aplicações web modernas e performáticas com Next.js, dominando renderização, roteamento avançado e React Server Components!
 
 ### Plataforma: Rocketseat
@@ -135,3 +137,35 @@ https://vercel.com/
 
 ### pagespeed link: 
 https://pagespeed.web.dev/
+
+
+## Curso Nível 2 - Pet Shop
+
+### Eslint link: 
+https://eslint.org/
+
+### LeftHook link:
+https://lefthook.dev/
+
+Como você usa npm, rode dentro do projeto, necessário instalar no diretório onde contem a pasta ".git" :
+npm install lefthook --save-dev
+
+Depois:
+npx lefthook install
+
+Executar comando local:
+npx lefthook run pre-push --all-files
+
+### Comandos Básicos - Docker
+
+#### inicializar os container da aplicação
+docker-compose up
+
+#### inicializar os container da aplicação liberando o terminal
+docker-compose up -d
+
+#### verificar os containers em execução
+docker-compose ps
+
+#### Stopar os containers em execução
+docker-compose down
