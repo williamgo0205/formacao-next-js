@@ -155,3 +155,17 @@ npx lefthook install
 
 Executar comando local:
 npx lefthook run pre-push --all-files
+
+### Comandos Básicos - Docker
+
+#### inicializar os container da aplicação
+docker-compose up
+
+#### inicializar os container da aplicação liberando o terminal
+docker-compose up -d
+
+#### verificar os containers em execução
+docker-compose ps
+
+#### Stopar os containers em execução
+docker-compose down
