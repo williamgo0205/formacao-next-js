@@ -1,6 +1,7 @@
 pre-commit:
   commands:
     check:
+      root: "pet-shop"
       run: npm format {staged_files}
       glob: '*.{js,jsx,ts,tsx,css,json,md}'
       stage_fixed: true
