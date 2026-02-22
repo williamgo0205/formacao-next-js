@@ -2,12 +2,13 @@ pre-commit:
   commands:
     check:
       root: "pet-shop"
-      run: npm format {staged_files}
-      glob: '*.{js,jsx,ts,tsx,css,json,md}'
+      glob: "**/*.{js,jsx,ts,tsx,css,json,md}"
+      run: npm run format -- {staged_files}
       stage_fixed: true
 
 pre-push:
   commands:
     validate:
-      glob: '*.{ts,tsx}'
-      run: npm validate:typecheck
+      root: "pet-shop"
+      glob: "**/*.{ts,tsx}"
+      run: npm run validate:typecheck
