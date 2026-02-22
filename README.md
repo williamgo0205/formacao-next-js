@@ -140,3 +140,11 @@ https://pagespeed.web.dev/
 
 
 ## Curso Nível 2 - Pet Shop
+
+### Eslint link: 
+https://eslint.org/
+
+### LeftHook link:
+https://lefthook.dev/
+
+comando para instalar o lefthook: npx lefthook install
