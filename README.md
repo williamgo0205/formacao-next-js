@@ -152,3 +152,6 @@ npm install lefthook --save-dev
 
 Depois:
 npx lefthook install
+
+Executar comando local:
+npx lefthook run pre-push --all-files

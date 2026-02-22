@@ -1,6 +1,6 @@
 type Props = {
   title: string;
-}
+};
 
 const Component = ({ title }: Props) => {
   console.log(title);
@@ -8,14 +8,14 @@ const Component = ({ title }: Props) => {
     <>
       <h2>Component</h2>
     </>
-  )
-}
+  );
+};
 
 export default function Home() {
   return (
     <div>
       <h2>Rocketseat</h2>
-      <Component title={200} />
+      <Component title={300} />
     </div>
   );
 }
