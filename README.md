@@ -147,4 +147,8 @@ https://eslint.org/
 ### LeftHook link:
 https://lefthook.dev/
 
-comando para instalar o lefthook: npx lefthook install
+Como você usa npm, rode dentro do projeto, necessário instalar no diretório onde contem a pasta ".git" :
+npm install lefthook --save-dev
+
+Depois:
+npx lefthook install
