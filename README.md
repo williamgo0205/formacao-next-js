@@ -81,11 +81,14 @@ https://www.figma.com/community/file/1491107537598172161/landing-page-e-blog
 #### Shadcn Ui (Utilização de componentes)
 https://ui.shadcn.com/
 
-#### Instalação:
+#### Instalação no Next:
 https://ui.shadcn.com/docs/installation/next
 
-#### Comando:
+#### Comando instalação Shadcn:
 npx shadcn@latest init
+
+### Adicionando um botão:
+npx shadcn@latest add button
 
 ### 7. Construção arquivos Markdown
 
