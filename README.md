@@ -169,3 +169,18 @@ docker-compose ps
 
 #### Stopar os containers em execução
 docker-compose down
+
+### Prisma
+Prisma é um facilidatador ente a apliacação typescript e o Banco de dados
+
+### Comando de instalaçao do prisma e de desenvolvimento o prisma/clien
+npm install prisma && npm install -D prisma @prisma/client
+
+### Instalando prisma e prisma client versão 6
+npm install prisma@6 && npm install -D @prisma/client@6
+
+### Iniciando o prisma
+npx prisma init --datasource-provider postgresql
+
+### Iniciando o prisma ambiente de desenvolvimento
+npx prisma migrate dev --name "init"
