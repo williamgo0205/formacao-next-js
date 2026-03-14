@@ -144,6 +144,9 @@ https://pagespeed.web.dev/
 
 ## Curso Nível 2 - Pet Shop
 
+## Figma do projeto:
+https://www.figma.com/community/file/1402272413594042585/agendamento-de-petshop
+
 ### Eslint link: 
 https://eslint.org/
 
