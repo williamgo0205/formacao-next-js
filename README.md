@@ -190,3 +190,9 @@ npx prisma init --datasource-provider postgresql
 
 ### Iniciando o prisma ambiente de desenvolvimento
 npx prisma migrate dev --name "init"
+
+### Rebuildar o Prisma no projeto
+npx prisma generate
+
+## Caso algum modelo no projeto
+npx prisma migrate dev
