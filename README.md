@@ -81,11 +81,14 @@ https://www.figma.com/community/file/1491107537598172161/landing-page-e-blog
 #### Shadcn Ui (Utilização de componentes)
 https://ui.shadcn.com/
 
-#### Instalação:
+#### Instalação no Next:
 https://ui.shadcn.com/docs/installation/next
 
-#### Comando:
+#### Comando instalação Shadcn:
 npx shadcn@latest init
+
+### Adicionando um botão:
+npx shadcn@latest add button
 
 ### 7. Construção arquivos Markdown
 
@@ -141,6 +144,9 @@ https://pagespeed.web.dev/
 
 ## Curso Nível 2 - Pet Shop
 
+## Figma do projeto:
+https://www.figma.com/community/file/1402272413594042585/agendamento-de-petshop
+
 ### Eslint link: 
 https://eslint.org/
 
@@ -169,3 +175,24 @@ docker-compose ps
 
 #### Stopar os containers em execução
 docker-compose down
+
+### Prisma
+Prisma é um facilidatador ente a apliacação typescript e o Banco de dados
+
+### Comando de instalaçao do prisma e de desenvolvimento o prisma/clien
+npm install prisma && npm install -D prisma @prisma/client
+
+### Instalando prisma e prisma client versão 6
+npm install prisma@6 && npm install -D @prisma/client@6
+
+### Iniciando o prisma
+npx prisma init --datasource-provider postgresql
+
+### Iniciando o prisma ambiente de desenvolvimento
+npx prisma migrate dev --name "init"
+
+### Rebuildar o Prisma no projeto
+npx prisma generate
+
+## Caso algum modelo no projeto
+npx prisma migrate dev
