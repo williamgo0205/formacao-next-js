@@ -196,3 +196,12 @@ npx prisma generate
 
 ## Caso algum modelo no projeto
 npx prisma migrate dev
+
+## Comandos de bibliotecas utilizadas no projeto
+npm install react-hook-form @hookform/resolvers zod sonner
+
+#### Comando instalação Shadcn:
+npx shadcn@latest init
+
+### Adicionando um dialog:
+npx shadcn@latest add dialog
