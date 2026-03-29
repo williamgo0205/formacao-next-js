@@ -208,3 +208,9 @@ npx shadcn@latest add dialog
 
 ### Adicionando um form:
 npx shadcn@latest add form
+
+### Adicionando um input:
+npx shadcn@latest add input
+
+### Adicionando um textarea:
+npx shadcn@latest add textarea
