@@ -205,3 +205,6 @@ npx shadcn@latest init
 
 ### Adicionando um dialog:
 npx shadcn@latest add dialog
+
+### Adicionando um form:
+npx shadcn@latest add form
