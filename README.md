@@ -205,3 +205,24 @@ npx shadcn@latest init
 
 ### Adicionando um dialog:
 npx shadcn@latest add dialog
+
+### Adicionando um form:
+npx shadcn@latest add form
+
+### Adicionando um input:
+npx shadcn@latest add input
+
+### Adicionando um textarea:
+npx shadcn@latest add textarea
+
+### Adicionando um Calendar:
+npx shadcn@latest add calendar
+
+### Adicionando um Popover:
+npx shadcn@latest add popover
+
+### Adicionando um Input Mask:
+npm install react-imask
+
+### Adicionando um date-fns:
+npm add date-fns 
