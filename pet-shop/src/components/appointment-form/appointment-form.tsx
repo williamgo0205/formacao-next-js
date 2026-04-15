@@ -1,5 +1,6 @@
 'use client';
 
+import { createAppointment } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -91,16 +92,20 @@ export const AppointmentForm = () => {
     },
   });
 
-  const onSubmit = (data: AppointFormValues) => {
+  const onSubmit = async (data: AppointFormValues) => {
     // Desestruturado o horário para criar um objeto Date completo com a data e hora do agendamento para repassar ao Prisma pois ele é um DateTime
     const [hour, minute] = data.time.split(':');
 
-    const scheduleDateTime = new Date(data.scheduleAt);
-    scheduleDateTime.setHours(Number(hour), Number(minute), 0, 0);
-
-    toast.success('Agendamento criado com sucesso!');
+    const scheduleAt = new Date(data.scheduleAt);
+    scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
 
     // Invoca a Server Action para realizar a comunicação e salvar no Banco de Dados
+    await createAppointment({
+      ...data, // repassa os dados do formulário
+      scheduleAt, // repassa o horário completo do agendamento para a Server Action, que é um objeto Date com a data e hora do agendamento
+    });
+
+    toast.success('Agendamento criado com sucesso!');
 
     console.log(data);
   };
