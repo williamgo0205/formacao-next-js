@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
+import { toast } from 'sonner';
 import z from 'zod';
 import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
@@ -91,6 +92,16 @@ export const AppointmentForm = () => {
   });
 
   const onSubmit = (data: AppointFormValues) => {
+    // Desestruturado o horário para criar um objeto Date completo com a data e hora do agendamento para repassar ao Prisma pois ele é um DateTime
+    const [hour, minute] = data.time.split(':');
+
+    const scheduleDateTime = new Date(data.scheduleAt);
+    scheduleDateTime.setHours(Number(hour), Number(minute), 0, 0);
+
+    toast.success('Agendamento criado com sucesso!');
+
+    // Invoca a Server Action para realizar a comunicação e salvar no Banco de Dados
+
     console.log(data);
   };
 

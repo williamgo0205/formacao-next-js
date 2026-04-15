@@ -229,3 +229,6 @@ npm add date-fns
 
 ### Adicionando um Select
 npx shadcn@latest add select
+
+## Lib de utilização dos Toasts para mensagens informativas em tela
+npm install sonner
