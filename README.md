@@ -226,3 +226,6 @@ npm install react-imask
 
 ### Adicionando um date-fns:
 npm add date-fns 
+
+### Adicionando um Select
+npx shadcn@latest add select
