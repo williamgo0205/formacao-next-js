@@ -100,14 +100,22 @@ export const AppointmentForm = () => {
     scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
 
     // Invoca a Server Action para realizar a comunicação e salvar no Banco de Dados
-    await createAppointment({
+    const result = await createAppointment({
       ...data, // repassa os dados do formulário
       scheduleAt, // repassa o horário completo do agendamento para a Server Action, que é um objeto Date com a data e hora do agendamento
     });
 
+    // Verificação de erro retornado pela Server Action, caso haja, exibe a mensagem de erro utilizando o toast e interrompe a execução
+    if (result?.error) {
+      toast.error(result.error);
+      return;
+    }
+
+    // Caso o agendamento seja criado com sucesso, exibe uma mensagem de sucesso utilizando o toast
     toast.success('Agendamento criado com sucesso!');
 
-    console.log(data);
+    // Reseta o formulário para os valores iniciais
+    form.reset();
   };
 
   return (
