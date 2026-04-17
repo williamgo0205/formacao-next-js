@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 import z from 'zod';
 
 const appointmentSchema = z.object({
@@ -59,6 +60,9 @@ export async function createAppointment(data: AppointmentData) {
         ...parsedData,
       },
     });
+
+    // Revalida a página para atualizar a lista de agendamentos de forma automatica após a criação de um novo agendamento
+    revalidatePath('/');
   } catch (error) {
     console.error(error);
   }

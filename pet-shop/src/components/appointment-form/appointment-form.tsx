@@ -32,6 +32,7 @@ import {
   Phone,
   User,
 } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { toast } from 'sonner';
@@ -80,6 +81,8 @@ const appointmentFormSchema = z
 type AppointFormValues = z.infer<typeof appointmentFormSchema>;
 
 export const AppointmentForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const form = useForm<AppointFormValues>({
     resolver: zodResolver(appointmentFormSchema),
     defaultValues: {
@@ -114,12 +117,15 @@ export const AppointmentForm = () => {
     // Caso o agendamento seja criado com sucesso, exibe uma mensagem de sucesso utilizando o toast
     toast.success('Agendamento criado com sucesso!');
 
+    // Fecha o modal após o agendamento ser criado para atualizar a página
+    setIsOpen(false);
+
     // Reseta o formulário para os valores iniciais
     form.reset();
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="brand">Novo Agendamento</Button>
       </DialogTrigger>
