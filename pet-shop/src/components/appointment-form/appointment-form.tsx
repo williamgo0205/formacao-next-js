@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { Appointment } from '@/types/appointment';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format, setHours, setMinutes, startOfToday } from 'date-fns';
 import {
@@ -32,7 +33,7 @@ import {
   Phone,
   User,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { toast } from 'sonner';
@@ -80,9 +81,20 @@ const appointmentFormSchema = z
 
 type AppointFormValues = z.infer<typeof appointmentFormSchema>;
 
-export const AppointmentForm = () => {
+type AppointmentFormProps = {
+  appointment?: Appointment;
+  children?: React.ReactNode;
+};
+
+export const AppointmentForm = ({
+  appointment,
+  children,
+}: AppointmentFormProps) => {
+  // Controle de abertura do modal
   const [isOpen, setIsOpen] = useState(false);
 
+  // Hook do React Hook Form para controle do formulário, utilizando o Zod para validação dos campos e definindo os valores iniciais do formulário,
+  // que são strings vazias para os campos de texto e undefined para o campo de data, pois o componente de calendário aceita um valor do tipo Date ou undefined
   const form = useForm<AppointFormValues>({
     resolver: zodResolver(appointmentFormSchema),
     defaultValues: {
@@ -124,11 +136,15 @@ export const AppointmentForm = () => {
     form.reset();
   };
 
+  // Efeito para resetar os valores do formulário sempre que o agendamento passado por props for alterado, ou seja,
+  // quando o modal for aberto para edição de um agendamento existente, os valores do formulário serão preenchidos com os dados do agendamento selecionado para edição
+  useEffect(() => {
+    form.reset(appointment);
+  }, [appointment, form]);
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="brand">Novo Agendamento</Button>
-      </DialogTrigger>
+      {children && <DialogTrigger asChild>{children}</DialogTrigger>}
 
       <DialogContent
         variant="appointment"
