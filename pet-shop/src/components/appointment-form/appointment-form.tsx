@@ -1,6 +1,6 @@
 'use client';
 
-import { createAppointment } from '@/app/actions';
+import { createAppointment, updateAppointment } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -114,11 +114,22 @@ export const AppointmentForm = ({
     const scheduleAt = new Date(data.scheduleAt);
     scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
 
-    // Invoca a Server Action para realizar a comunicação e salvar no Banco de Dados
-    const result = await createAppointment({
-      ...data, // repassa os dados do formulário
-      scheduleAt, // repassa o horário completo do agendamento para a Server Action, que é um objeto Date com a data e hora do agendamento
-    });
+    // Verifica se é umaedição do regitsro ou uma inclusão
+    const isEdit = !!appointment?.id;
+
+    // Invoca a Server Action para realizar a comunicação e salvar no Banco de Dados (Atualização ou Criaçao)
+    const result = isEdit
+      ? await updateAppointment(
+          appointment.id, // repassa o ID do agendamento para a Server Action para identificar qual registro deve ser atualizado
+          {
+            ...data, // repassa os dados do formulário
+            scheduleAt, // repassa o horário completo do agendamento para a Server Action, que é um objeto Date com a data e hora do agendamento
+          }
+        )
+      : await createAppointment({
+          ...data, // repassa os dados do formulário
+          scheduleAt, // repassa o horário completo do agendamento para a Server Action, que é um objeto Date com a data e hora do agendamento
+        });
 
     // Verificação de erro retornado pela Server Action, caso haja, exibe a mensagem de erro utilizando o toast e interrompe a execução
     if (result?.error) {
@@ -127,7 +138,9 @@ export const AppointmentForm = ({
     }
 
     // Caso o agendamento seja criado com sucesso, exibe uma mensagem de sucesso utilizando o toast
-    toast.success('Agendamento criado com sucesso!');
+    toast.success(
+      `Agendamento ${isEdit ? 'atualizado' : 'criado'} com sucesso!`
+    );
 
     // Fecha o modal após o agendamento ser criado para atualizar a página
     setIsOpen(false);
