@@ -64,7 +64,12 @@ export async function createAppointment(data: AppointmentData) {
     // Revalida a página para atualizar a lista de agendamentos de forma automatica após a criação de um novo agendamento
     revalidatePath('/');
   } catch (error) {
-    console.error(error);
+    console.log(error);
+
+    return {
+      error:
+        'Ocorreu um erro ao criar o agendamento. Por favor, tente novamente.',
+    };
   }
 }
 
@@ -125,6 +130,34 @@ export async function updateAppointment(id: string, data: AppointmentData) {
     // Revalida a página para atualizar a lista de agendamentos de forma automatica após a criação de um novo agendamento
     revalidatePath('/');
   } catch (error) {
-    console.error(error);
+    console.log(error);
+
+    return {
+      error:
+        'Ocorreu um erro ao atualizar o agendamento. Por favor, tente novamente.',
+    };
+  }
+}
+
+//** Server Action para excluir um agendamento existente ***
+// Esta função é responsável por excluir um agendamento do banco de dados com base no ID fornecido.
+// Após a exclusão, ela revalida a página para atualizar a lista de agendamentos de forma automática.
+export async function deleteAppointment(id: string) {
+  try {
+    await prisma.appointment.delete({
+      where: {
+        id,
+      },
+    });
+
+    // Revalida a página para atualizar a lista de agendamentos de forma automatica após a exclusão de um agendamento
+    revalidatePath('/');
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error:
+        'Ocorreu um erro ao excluir o agendamento. Por favor, tente novamente.',
+    };
   }
 }

@@ -1,7 +1,27 @@
+'use client';
+
+import { deleteAppointment } from '@/app/actions';
 import { cn } from '@/lib/utils';
 import { Appointment } from '@/types/appointment';
-import { Pen as EditIcon } from 'lucide-react';
+import {
+  Trash2 as DeleteIcon,
+  Pen as EditIcon,
+  Loader2 as LoadingIcon,
+} from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { AppointmentForm } from '../appointment-form';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../ui/alert-dialog';
 import { Button } from '../ui/button';
 
 type AppointmentCardProps = {
@@ -13,6 +33,29 @@ export const AppointmentCard = ({
   appointment,
   isFirstInSection = false,
 }: AppointmentCardProps) => {
+  const [isDeleting, setIsDeleting] = useState(false); // Estado para controlar o processo de exclusão do agendamento
+
+  // Função para lidar com a exclusão do agendamento
+  const handleDelete = async () => {
+    // Define o estado de exclusão como verdadeiro para indicar que o processo de exclusão está em andamento
+    setIsDeleting(true);
+
+    // Chama a função de exclusão do agendamento passando o ID do agendamento a ser excluído
+    const reult = await deleteAppointment(appointment.id);
+
+    if (reult?.error) {
+      // Se houver um erro durante a exclusão, exibe uma mensagem de erro para o usuário
+      toast.error(reult.error);
+      return;
+    }
+
+    // Exibe uma mensagem de sucesso após a exclusão bem-sucedida
+    toast.success('Agendamento excluído com sucesso!');
+
+    // Define o estado de exclusão como falso para indicar que o processo de exclusão foi concluído
+    setIsDeleting(false);
+  };
+
   return (
     <div
       className={cn(
@@ -49,11 +92,44 @@ export const AppointmentCard = ({
       </div>
 
       <div className="text-right mt-2 md:mt-0 col-span-2 md:col-span-1 flex justify-end items-center gap-2">
+        {/* Botão de edicao do agendamento */}
         <AppointmentForm appointment={appointment}>
           <Button variant="edit" size="icon">
             <EditIcon size={16} />
           </Button>
         </AppointmentForm>
+
+        {/* Botão de exclusão do agendamento */}
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="remove" size="icon">
+              <DeleteIcon size={16} />
+            </Button>
+          </AlertDialogTrigger>
+
+          {/* Conteúdo do diálogo de alerta */}
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Remover agendamento</AlertDialogTitle>
+
+              <AlertDialogDescription>
+                Tem certeza que deseja remover este agendamento? Esta ação não
+                pode ser desfeita.
+              </AlertDialogDescription>
+
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+
+                <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
+                  {isDeleting && (
+                    <LoadingIcon className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Confirmar remoção
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
