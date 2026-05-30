@@ -4,9 +4,36 @@ import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
 
 import { groupAppointmentByPeriod } from '@/utils';
+import { endOfDay, parseISO, startOfDay } from 'date-fns';
 
-export default async function Home() {
-  const appointments = await prisma.appointment.findMany();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ date?: string }>;
+}) {
+  // Obtém a data selecionada a partir dos parâmetros de busca. Se não houver uma data, utiliza a data atual.
+  const { date } = await searchParams;
+
+  // Converte a string de data para um objeto Date. Se a string de data for inválida ou não for fornecida, utiliza a data atual.
+  const selectedDate = date ? parseISO(date) : new Date();
+
+  // Busca os agendamentos para a data selecionada no banco de dados, utilizando o Prisma.
+  // Os agendamentos são filtrados para incluir apenas aqueles que estão dentro do dia selecionado (entre o início e o fim do dia)
+  // e são ordenados por horário de agendamento em ordem crescente.
+  const appointments = await prisma.appointment.findMany({
+    where: {
+      scheduleAt: {
+        // GTE = GREATER THAN OR EQUAL TO (Maior ou iggual a
+        // LTE = LESS THAN OR EQUAL TO (Menor ou igual a)
+        gte: startOfDay(selectedDate),
+        lte: endOfDay(selectedDate),
+      },
+    },
+    orderBy: {
+      scheduleAt: 'asc',
+    },
+  });
+
   console.log(appointments);
 
   const periods = groupAppointmentByPeriod(appointments);
