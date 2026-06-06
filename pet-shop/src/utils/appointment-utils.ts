@@ -55,3 +55,16 @@ export function groupAppointmentByPeriod(
     },
   ];
 }
+
+// Função auxiliar para calcular o período do dia com base na hora do agendamento
+export function calculedPeriod(hour: number) {
+  const isMorning = hour >= 9 && hour < 12;
+  const isAfternoon = hour >= 13 && hour < 18;
+  const isEvening = hour >= 19 && hour < 21;
+
+  return {
+    isMorning,
+    isAfternoon,
+    isEvening,
+  };
+}
