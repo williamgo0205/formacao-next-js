@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+import { calculedPeriod } from '@/utils';
 import { revalidatePath } from 'next/cache';
 import z from 'zod';
 
@@ -26,10 +27,8 @@ export async function createAppointment(data: AppointmentData) {
     const { scheduleAt } = parsedData;
     const hour = scheduleAt.getHours();
 
-    // verificação do horário permitido para agendamento
-    const isMorning = hour >= 9 && hour < 12;
-    const isAfternoon = hour >= 13 && hour < 18;
-    const isEvening = hour >= 19 && hour < 21;
+    // Cálculo do período do dia com base na hora do agendamento
+    const { isMorning, isAfternoon, isEvening } = calculedPeriod(hour);
 
     // Caso o horário não esteja dentro dos intervalos permitidos, retorna um erro
     if (!isMorning && !isAfternoon && !isEvening) {
@@ -86,10 +85,8 @@ export async function updateAppointment(id: string, data: AppointmentData) {
     const { scheduleAt } = parsedData;
     const hour = scheduleAt.getHours();
 
-    // verificação do horário permitido para agendamento
-    const isMorning = hour >= 9 && hour < 12;
-    const isAfternoon = hour >= 13 && hour < 18;
-    const isEvening = hour >= 19 && hour < 21;
+    // Cálculo do período do dia com base na hora do agendamento
+    const { isMorning, isAfternoon, isEvening } = calculedPeriod(hour);
 
     // Caso o horário não esteja dentro dos intervalos permitidos, retorna um erro
     if (!isMorning && !isAfternoon && !isEvening) {
