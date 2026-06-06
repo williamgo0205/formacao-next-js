@@ -221,6 +221,9 @@ npx shadcn@latest add textarea
 ### Adicionando um Calendar:
 npx shadcn@latest add calendar
 
+### Adicionando um Tootip
+npx shadcn@latest add tooltip
+
 ### Adicionando um Popover:
 npx shadcn@latest add popover
 
