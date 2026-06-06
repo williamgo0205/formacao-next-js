@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-import { calculedPeriod } from '@/utils';
+import { calculedPeriod, formatDateTime } from '@/utils';
 import { revalidatePath } from 'next/cache';
 import z from 'zod';
 
@@ -25,7 +25,9 @@ export async function createAppointment(data: AppointmentData) {
 
     // Desestruturação para obter a hora do agendamento
     const { scheduleAt } = parsedData;
-    const hour = scheduleAt.getHours();
+
+    // Formatação da hora do agendamento para o formato "HH:mm" no fuso horário de São Paulo
+    const hour = parseInt(formatDateTime(scheduleAt));
 
     // Cálculo do período do dia com base na hora do agendamento
     const { isMorning, isAfternoon, isEvening } = calculedPeriod(hour);
@@ -83,7 +85,9 @@ export async function updateAppointment(id: string, data: AppointmentData) {
 
     // Desestruturação para obter a hora do agendamento
     const { scheduleAt } = parsedData;
-    const hour = scheduleAt.getHours();
+
+    // Formatação da hora do agendamento para o formato "HH:mm" no fuso horário de São Paulo
+    const hour = parseInt(formatDateTime(scheduleAt));
 
     // Cálculo do período do dia com base na hora do agendamento
     const { isMorning, isAfternoon, isEvening } = calculedPeriod(hour);

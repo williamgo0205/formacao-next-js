@@ -16,12 +16,9 @@ export function groupAppointmentByPeriod(
 ): AppointmentPeriod[] {
   const transformedAppointments: Appointment[] = appointments?.map((apt) => ({
     ...apt,
-    time: apt.scheduleAt.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+    time: formatDateTime(apt.scheduleAt),
     service: apt.description,
-    period: getPeriod(apt.scheduleAt.getHours()),
+    period: getPeriod(parseInt(formatDateTime(apt.scheduleAt))),
   }));
 
   const morningAppointments = transformedAppointments.filter(
@@ -67,4 +64,14 @@ export function calculedPeriod(hour: number) {
     isAfternoon,
     isEvening,
   };
+}
+
+// Função auxiliar para formatar a data e hora do agendamento no formato "HH:mm" no fuso horário de São Paulo
+export function formatDateTime(date: Date): string {
+  return date.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'America/Sao_Paulo',
+  });
 }

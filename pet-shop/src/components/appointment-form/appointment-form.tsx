@@ -111,8 +111,10 @@ export const AppointmentForm = ({
     // Desestruturado o horário para criar um objeto Date completo com a data e hora do agendamento para repassar ao Prisma pois ele é um DateTime
     const [hour, minute] = data.time.split(':');
 
-    const scheduleAt = new Date(data.scheduleAt);
-    scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
+    const scheduleAt = setMinutes(
+      setHours(data.scheduleAt, Number(hour)),
+      Number(minute)
+    );
 
     // Verifica se é umaedição do regitsro ou uma inclusão
     const isEdit = !!appointment?.id;
